@@ -1,8 +1,4 @@
-# Numerical Analysis 2
+# Numerical Analysis II
 ---
-
-
-
-
 
 Material of Numerical Analysis II course
