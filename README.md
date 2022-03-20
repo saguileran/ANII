@@ -1,2 +1,4 @@
-# ANII
-Material of Numerical Analysis II course
+# Numerical Analysis II
+---
+
+Material of Numerical Analysis II course 2022
