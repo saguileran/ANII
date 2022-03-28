@@ -321,23 +321,27 @@ end
 
 # ╔═╡ 25be652e-adea-11ec-1667-d9bcf73815e9
 md"
-Let's start from the limit epsilon delta definition
+Let's start from the limit epsilon delta definition 
 
 ```math
-|f(x_0,y_0)-L|<\epsilon \qquad \Longleftrightarrow \qquad -\epsilon <  f(x_0,y_0)-L<\epsilon -\epsilon +L<  f(x_0,y_0)<\epsilon+L
+|f(x_0,y_0)-L|<\epsilon \qquad \Longleftrightarrow \qquad -\epsilon <  f(x_0,y_0)-L<\epsilon -\epsilon +L<  f(x,y)<\epsilon+L
+```
+and the following hypothesis
+```math
+\iint_{\Omega} f(x,y) dx fy = 0
 ```
 that it is valid for any $\epsilon >0$, $\delta >0$, and for any $(x_0,y_0)\in \Omega$, In particular, taking $\epsilon=|L|/2$
 ```math
-\frac{L}{2} <  f(x_0,y_0)< \frac{3L}{2}
+\frac{L}{2} <  f(x,y)< \frac{3L}{2}
 ```
 Now, integrating the last inequality over $\Omega$
 
 ```math
-\iint_{\Omega} \frac{L}{2} \;dxdy< \iint_{\Omega}  f(x_0,y_0) \;dxdy< \iint_{\Omega} \frac{3L}{2} \; dxdy
+\iint_{\Omega} \frac{L}{2} \;dxdy< \iint_{\Omega}  f(x,y) \;dxdy< \iint_{\Omega} \frac{3L}{2} \; dxdy
 ```
 then
 ```math
- \iint_{\Omega}  f(x_0,y_0) \;dxdy > \iint_{\Omega} \frac{L}{2} \;dxdy \geq \int_{y_0-\delta}^{y_0+\delta} \int_{x_0-\delta}^{x_0+\delta} \frac{L}{2} \; dx dy = \frac{L}{2} (2\delta) (2\delta) = 2 L \; \cdot \; \delta^2 
+ \iint_{\Omega}  f(x,y) \;dxdy > \iint_{\Omega} \frac{L}{2} \;dxdy \geq \int_{y_0-\delta}^{y_0+\delta} \int_{x_0-\delta}^{x_0+\delta} \frac{L}{2} \; dx dy = \frac{L}{2} (2\delta) (2\delta) = 2 L \; \cdot \; \delta^2 
 ```
 Thus 
 ```math
@@ -1528,7 +1532,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═c0cca110-a9ba-11ec-3eac-07ae73f67832
 # ╠═0e849070-a9bb-11ec-35c7-99a985571bbb
 # ╠═11431430-a9bb-11ec-1174-6df0edc48380
-# ╟─2dedf230-a9bb-11ec-1474-ef4bd3035175
+# ╠═2dedf230-a9bb-11ec-1474-ef4bd3035175
 # ╟─59f981d0-ade6-11ec-01e1-cb295e707273
 # ╠═25be652e-adea-11ec-1667-d9bcf73815e9
 # ╠═91fb9ae0-0f8c-4d2e-9220-70701da28913
