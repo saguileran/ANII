@@ -354,34 +354,6 @@ Thereby, since $f(x,y)$ is continuos in $\Omega$ it satisfies that
 # ╔═╡ 91fb9ae0-0f8c-4d2e-9220-70701da28913
 
 
-# ╔═╡ 7aaf1af0-a9ba-11ec-2a0a-f3cfb773fe66
-integralu2, err = quadgk(x -> broadcast(abs, u.(x)).^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 08041820-a9ba-11ec-0caf-0dac024f7add
-integral1, err = quadgk(x -> broadcast(abs, u(x)-v(x))^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ c0cca110-a9ba-11ec-3eac-07ae73f67832
-integralupupmp, err = quadgk(x -> broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 1b947c8e-a9ba-11ec-3426-81427ab164ec
-integral2, err = quadgk(x -> broadcast(abs, up(x)-vp(x))^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 4caa1970-a9ba-11ec-2a41-57bbb9c0cd9e
-begin
-	plot_umumv2    = scatter(;x=x, y=broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, mode="lines+markers", fill="tozeroy", name="|u(u-v)|^2")
-	plot_upmupmvp2 = scatter(;x=x, y=broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, mode="lines+markers", fill="tozeroy", name="|u'(u'-v')|^2")
-
-	p5 = plot([plot_u, plot_umv, plot_umumv2], Layout(title="Functions",  xaxis_title="x"))
-	p6 = plot([plot_up, plot_upmvp, plot_upmupmvp2], Layout(title="Derivative Functions",  xaxis_title="x"))
-
-	p = [p5 p6]
-	#relayout!(p, height=300, width=700, title_text="Functions", legend_title_text="Legend")
-	#p
-end
-
-# ╔═╡ 78ab34a0-a9ba-11ec-0276-1f5df54ae99e
-integraluumv, err = quadgk(x -> broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, 0, 2, rtol=1e-8)
-
 # ╔═╡ cdf1c2e0-a9b9-11ec-059a-8b69956003ba
 begin
 	plot_umv2  = scatter(;x=x, y=broadcast(abs, u.(x) - v.(x)).^2, mode="lines+markers", fill="tozeroy", name="|u(x)-v(x)|^2")
@@ -394,6 +366,34 @@ begin
 	p4 = plot([plot_upmvp2, plot_upmvp], Layout(title="Distance Between Derivative Functions",  xaxis_title="x"))
 
 	p = [p3 p4]
+	#relayout!(p, height=300, width=700, title_text="Functions", legend_title_text="Legend")
+	#p
+end
+
+# ╔═╡ 1b947c8e-a9ba-11ec-3426-81427ab164ec
+integral2, err = quadgk(x -> broadcast(abs, up(x)-vp(x))^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 78ab34a0-a9ba-11ec-0276-1f5df54ae99e
+integraluumv, err = quadgk(x -> broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 08041820-a9ba-11ec-0caf-0dac024f7add
+integral1, err = quadgk(x -> broadcast(abs, u(x)-v(x))^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 7aaf1af0-a9ba-11ec-2a0a-f3cfb773fe66
+integralu2, err = quadgk(x -> broadcast(abs, u.(x)).^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ c0cca110-a9ba-11ec-3eac-07ae73f67832
+integralupupmp, err = quadgk(x -> broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 4caa1970-a9ba-11ec-2a41-57bbb9c0cd9e
+begin
+	plot_umumv2    = scatter(;x=x, y=broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, mode="lines+markers", fill="tozeroy", name="|u(u-v)|^2")
+	plot_upmupmvp2 = scatter(;x=x, y=broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, mode="lines+markers", fill="tozeroy", name="|u'(u'-v')|^2")
+
+	p5 = plot([plot_u, plot_umv, plot_umumv2], Layout(title="Functions",  xaxis_title="x"))
+	p6 = plot([plot_up, plot_upmvp, plot_upmupmvp2], Layout(title="Derivative Functions",  xaxis_title="x"))
+
+	p = [p5 p6]
 	#relayout!(p, height=300, width=700, title_text="Functions", legend_title_text="Legend")
 	#p
 end
