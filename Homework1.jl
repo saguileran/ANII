@@ -12,7 +12,7 @@ end
 
 # ╔═╡ 2b55a600-a9b9-11ec-3eb1-1f25b963a10f
 html"
-<center> <h1> Homework #1 <br> 2022</h1> </center>
+<center> <h1> Homework 1 <br> Numerical Analysis  <br> 2022</h1> </center>
 "
 
 # ╔═╡ 4e476b30-a9b9-11ec-2d51-2fa7754c2747
@@ -321,27 +321,23 @@ end
 
 # ╔═╡ 25be652e-adea-11ec-1667-d9bcf73815e9
 md"
-Let's start from the limit epsilon delta definition 
+Let's start from the limit epsilon delta definition
 
 ```math
-|f(x_0,y_0)-L|<\epsilon \qquad \Longleftrightarrow \qquad -\epsilon <  f(x_0,y_0)-L<\epsilon -\epsilon +L<  f(x,y)<\epsilon+L
-```
-and the following hypothesis
-```math
-\iint_{\Omega} f(x,y) dx fy = 0
+|f(x_0,y_0)-L|<\epsilon \qquad \Longleftrightarrow \qquad -\epsilon <  f(x_0,y_0)-L<\epsilon -\epsilon +L<  f(x_0,y_0)<\epsilon+L
 ```
 that it is valid for any $\epsilon >0$, $\delta >0$, and for any $(x_0,y_0)\in \Omega$, In particular, taking $\epsilon=|L|/2$
 ```math
-\frac{L}{2} <  f(x,y)< \frac{3L}{2}
+\frac{L}{2} <  f(x_0,y_0)< \frac{3L}{2}
 ```
 Now, integrating the last inequality over $\Omega$
 
 ```math
-\iint_{\Omega} \frac{L}{2} \;dxdy< \iint_{\Omega}  f(x,y) \;dxdy< \iint_{\Omega} \frac{3L}{2} \; dxdy
+\iint_{\Omega} \frac{L}{2} \;dxdy< \iint_{\Omega}  f(x_0,y_0) \;dxdy< \iint_{\Omega} \frac{3L}{2} \; dxdy
 ```
 then
 ```math
- \iint_{\Omega}  f(x,y) \;dxdy > \iint_{\Omega} \frac{L}{2} \;dxdy \geq \int_{y_0-\delta}^{y_0+\delta} \int_{x_0-\delta}^{x_0+\delta} \frac{L}{2} \; dx dy = \frac{L}{2} (2\delta) (2\delta) = 2 L \; \cdot \; \delta^2 
+ \iint_{\Omega}  f(x_0,y_0) \;dxdy > \iint_{\Omega} \frac{L}{2} \;dxdy \geq \int_{y_0-\delta}^{y_0+\delta} \int_{x_0-\delta}^{x_0+\delta} \frac{L}{2} \; dx dy = \frac{L}{2} (2\delta) (2\delta) = 2 L \; \cdot \; \delta^2 
 ```
 Thus 
 ```math
@@ -358,34 +354,6 @@ Thereby, since $f(x,y)$ is continuos in $\Omega$ it satisfies that
 # ╔═╡ 91fb9ae0-0f8c-4d2e-9220-70701da28913
 
 
-# ╔═╡ 7aaf1af0-a9ba-11ec-2a0a-f3cfb773fe66
-integralu2, err = quadgk(x -> broadcast(abs, u.(x)).^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 08041820-a9ba-11ec-0caf-0dac024f7add
-integral1, err = quadgk(x -> broadcast(abs, u(x)-v(x))^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ c0cca110-a9ba-11ec-3eac-07ae73f67832
-integralupupmp, err = quadgk(x -> broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 1b947c8e-a9ba-11ec-3426-81427ab164ec
-integral2, err = quadgk(x -> broadcast(abs, up(x)-vp(x))^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 4caa1970-a9ba-11ec-2a41-57bbb9c0cd9e
-begin
-	plot_umumv2    = scatter(;x=x, y=broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, mode="lines+markers", fill="tozeroy", name="|u(u-v)|^2")
-	plot_upmupmvp2 = scatter(;x=x, y=broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, mode="lines+markers", fill="tozeroy", name="|u'(u'-v')|^2")
-
-	p5 = plot([plot_u, plot_umv, plot_umumv2], Layout(title="Functions",  xaxis_title="x"))
-	p6 = plot([plot_up, plot_upmvp, plot_upmupmvp2], Layout(title="Derivative Functions",  xaxis_title="x"))
-
-	p = [p5 p6]
-	#relayout!(p, height=300, width=700, title_text="Functions", legend_title_text="Legend")
-	#p
-end
-
-# ╔═╡ 78ab34a0-a9ba-11ec-0276-1f5df54ae99e
-integraluumv, err = quadgk(x -> broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, 0, 2, rtol=1e-8)
-
 # ╔═╡ cdf1c2e0-a9b9-11ec-059a-8b69956003ba
 begin
 	plot_umv2  = scatter(;x=x, y=broadcast(abs, u.(x) - v.(x)).^2, mode="lines+markers", fill="tozeroy", name="|u(x)-v(x)|^2")
@@ -398,6 +366,34 @@ begin
 	p4 = plot([plot_upmvp2, plot_upmvp], Layout(title="Distance Between Derivative Functions",  xaxis_title="x"))
 
 	p = [p3 p4]
+	#relayout!(p, height=300, width=700, title_text="Functions", legend_title_text="Legend")
+	#p
+end
+
+# ╔═╡ 1b947c8e-a9ba-11ec-3426-81427ab164ec
+integral2, err = quadgk(x -> broadcast(abs, up(x)-vp(x))^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 78ab34a0-a9ba-11ec-0276-1f5df54ae99e
+integraluumv, err = quadgk(x -> broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 08041820-a9ba-11ec-0caf-0dac024f7add
+integral1, err = quadgk(x -> broadcast(abs, u(x)-v(x))^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 7aaf1af0-a9ba-11ec-2a0a-f3cfb773fe66
+integralu2, err = quadgk(x -> broadcast(abs, u.(x)).^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ c0cca110-a9ba-11ec-3eac-07ae73f67832
+integralupupmp, err = quadgk(x -> broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 4caa1970-a9ba-11ec-2a41-57bbb9c0cd9e
+begin
+	plot_umumv2    = scatter(;x=x, y=broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, mode="lines+markers", fill="tozeroy", name="|u(u-v)|^2")
+	plot_upmupmvp2 = scatter(;x=x, y=broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, mode="lines+markers", fill="tozeroy", name="|u'(u'-v')|^2")
+
+	p5 = plot([plot_u, plot_umv, plot_umumv2], Layout(title="Functions",  xaxis_title="x"))
+	p6 = plot([plot_up, plot_upmvp, plot_upmupmvp2], Layout(title="Derivative Functions",  xaxis_title="x"))
+
+	p = [p5 p6]
 	#relayout!(p, height=300, width=700, title_text="Functions", legend_title_text="Legend")
 	#p
 end
@@ -1505,7 +1501,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 
 # ╔═╡ Cell order:
 # ╠═2b55a600-a9b9-11ec-3eb1-1f25b963a10f
-# ╠═326d71c0-a9b9-11ec-3986-c9776d176014
+# ╟─326d71c0-a9b9-11ec-3986-c9776d176014
 # ╟─4e476b30-a9b9-11ec-2d51-2fa7754c2747
 # ╟─f7dc9db0-a9b8-11ec-15a1-ab2e399d50f1
 # ╠═06249f30-a9b9-11ec-1093-a59349277d1a
@@ -1532,7 +1528,7 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 # ╠═c0cca110-a9ba-11ec-3eac-07ae73f67832
 # ╠═0e849070-a9bb-11ec-35c7-99a985571bbb
 # ╠═11431430-a9bb-11ec-1174-6df0edc48380
-# ╠═2dedf230-a9bb-11ec-1474-ef4bd3035175
+# ╟─2dedf230-a9bb-11ec-1474-ef4bd3035175
 # ╟─59f981d0-ade6-11ec-01e1-cb295e707273
 # ╠═25be652e-adea-11ec-1667-d9bcf73815e9
 # ╠═91fb9ae0-0f8c-4d2e-9220-70701da28913
