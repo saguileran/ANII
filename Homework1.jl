@@ -5,12 +5,14 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 326d71c0-a9b9-11ec-3986-c9776d176014
-using QuadGK, Calculus, Roots, LaTeXStrings, PlotlyJS
+begin
+	using PlutoUI, QuadGK, Calculus, Roots, LaTeXStrings, PlotlyJS, ImageShow, ImageIO, Images
+	TableOfContents(title="📚 Table of Contents Homework 1", indent=true, depth=4, aside=true)
+end
 
 # ╔═╡ 2b55a600-a9b9-11ec-3eb1-1f25b963a10f
 html"
-<center> <h1> Homework #1</h1> </center>
-<center> <h3> 2022</h3> </center>
+<center> <h1> Homework #1 <br> 2022</h1> </center>
 "
 
 # ╔═╡ 4e476b30-a9b9-11ec-2d51-2fa7754c2747
@@ -299,32 +301,43 @@ Let $f(x,y)$ a continous function over $\mathbb{R}^2$ such that
 ```
 for all rectangle $\Omega \subseteq \mathbb{R}^2$, then $f(x,y)=0$ for all $(x,y)$.
 
-Since $f$ is continous it satisfy 
+Since $f$ is continous in $\Omega$, it satisfyies that
 ```math
-\lim_{(x,y) -> (x_0, y_0)} f(x,y) = f(x_0,y_0)
+\lim_{(x,y) \to (x_0, y_0)} f(x,y) = f(x_0,y_0) = L
 ```
-for all $(x_0,y_0)$ in $\Omega$. Let's start integrating the last equation in $x$ and $y$, i.e. in $\Omega$
+for all $(x_0,y_0) \in \Omega$. It can be rewriting using  the epsilo-delta definition.
 
 ```math
-\iint_{\Omega} \lim_{(x,y) -> (x_0, y_0)} f(x,y) dx dy =  \iint_{\Omega} f(x_0,y_0) dx dy
+\forall \epsilon > 0, \exists \delta>0  \text{, whenever }  0 < |(x,y)-(x_{0},y_0)| < \delta,  \; \Rightarrow \; |f(x_0,y_0)-L|<\epsilon
 ```
-```math
-\lim_{(x,y) -> (x_0, y_0)} \iint_{\Omega}  f(x,y) dx dy =  \iint_{\Omega} f(x_0,y_0) dx dy 
-```
-```math
-\lim_{(x,y) -> (x_0, y_0)} 0  = \iint_{\Omega} f(x_0,y_0) dx dy 
-```
-```math
-\iint_{\Omega} f(x_0,y_0) dx dy = 0
-```
-The integral is zero then its integrating should be zero
-```math
-f(x_0,y_0) = 0 \quad \forall (x_0,y_0)\in \Omega \qquad \Longrightarrow \qquad \boxed{f(x,y) = 0} 
-```
+
 "
+
+# ╔═╡ 59f981d0-ade6-11ec-01e1-cb295e707273
+begin
+	url = "https://files.mtstatic.com/site_4425/3594/0?Expires=1648398822&Signature=XiIbvMeRCn6a6DmhKE6ympokXM1slrsUKh2qWfEeYqoq4lqUjE27RXL~HfOiOoDQUszhX6sZB1T1-AXv2O9UNxDZSWZa7NXxDbyC3xQ1BwpZLriKln82AD8EFP1saE2PLD~9D2bIAGOQYJggPt37KYYVfE6VA6nr0LsTI4q03uI_&Key-Pair-Id=APKAJ5Y6AV4GI7A555NA"
+	philip_filename = download(url) # download to a local file. The filename is returned
+	philip = load(philip_filename)
+	imresize(philip, (450, 500));
+end
+
+# ╔═╡ 25be652e-adea-11ec-1667-d9bcf73815e9
+
+
+# ╔═╡ 08041820-a9ba-11ec-0caf-0dac024f7add
+integral1, err = quadgk(x -> broadcast(abs, u(x)-v(x))^2, 0, 2, rtol=1e-8)
 
 # ╔═╡ c0cca110-a9ba-11ec-3eac-07ae73f67832
 integralupupmp, err = quadgk(x -> broadcast(abs, up.(x).*(up.(x) - vp.(x))).^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 1b947c8e-a9ba-11ec-3426-81427ab164ec
+integral2, err = quadgk(x -> broadcast(abs, up(x)-vp(x))^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 7aaf1af0-a9ba-11ec-2a0a-f3cfb773fe66
+integralu2, err = quadgk(x -> broadcast(abs, u.(x)).^2, 0, 2, rtol=1e-8)
+
+# ╔═╡ 78ab34a0-a9ba-11ec-0276-1f5df54ae99e
+integraluumv, err = quadgk(x -> broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, 0, 2, rtol=1e-8)
 
 # ╔═╡ cdf1c2e0-a9b9-11ec-059a-8b69956003ba
 begin
@@ -355,20 +368,8 @@ begin
 	#p
 end
 
-# ╔═╡ 1b947c8e-a9ba-11ec-3426-81427ab164ec
-integral2, err = quadgk(x -> broadcast(abs, up(x)-vp(x))^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 08041820-a9ba-11ec-0caf-0dac024f7add
-integral1, err = quadgk(x -> broadcast(abs, u(x)-v(x))^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 7aaf1af0-a9ba-11ec-2a0a-f3cfb773fe66
-integralu2, err = quadgk(x -> broadcast(abs, u.(x)).^2, 0, 2, rtol=1e-8)
-
-# ╔═╡ 78ab34a0-a9ba-11ec-0276-1f5df54ae99e
-integraluumv, err = quadgk(x -> broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, 0, 2, rtol=1e-8)
-
 # ╔═╡ Cell order:
-# ╟─2b55a600-a9b9-11ec-3eb1-1f25b963a10f
+# ╠═2b55a600-a9b9-11ec-3eb1-1f25b963a10f
 # ╠═326d71c0-a9b9-11ec-3986-c9776d176014
 # ╟─4e476b30-a9b9-11ec-2d51-2fa7754c2747
 # ╟─f7dc9db0-a9b8-11ec-15a1-ab2e399d50f1
@@ -397,3 +398,5 @@ integraluumv, err = quadgk(x -> broadcast(abs, u.(x).*(u.(x) - v.(x))).^2, 0, 2,
 # ╠═0e849070-a9bb-11ec-35c7-99a985571bbb
 # ╠═11431430-a9bb-11ec-1174-6df0edc48380
 # ╟─2dedf230-a9bb-11ec-1474-ef4bd3035175
+# ╟─59f981d0-ade6-11ec-01e1-cb295e707273
+# ╠═25be652e-adea-11ec-1667-d9bcf73815e9
