@@ -1,0 +1,9 @@
+esfuerzo sedencia o limite elastica
+plastica
+
+tensil - ductil
+compressive - cerámicos 
+
+teoría de tresca
+
+criterio CFL (size mesh and time step)  
